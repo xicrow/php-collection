@@ -1,5 +1,7 @@
 .idea
+.phive
 build
 code-coverage
+tools
 vendor
 composer.lock

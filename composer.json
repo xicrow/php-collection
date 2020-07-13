@@ -20,10 +20,6 @@
 		"ext-mbstring": "*",
 		"ext-json"    : "*"
 	},
-	"require-dev" : {
-		"phpunit/phpunit" : "^9.0",
-		"xicrow/php-debug": "^2.0"
-	},
 	"autoload"    : {
 		"psr-4": {
 			"Xicrow\\PhpCollection\\": "src"
