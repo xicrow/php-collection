@@ -18,25 +18,26 @@ h2 {
 	border-bottom: 1px solid #333333;
 }
 
-pre.code {
-	margin: 20px 0;
+.debug-code {
+	border: 5px solid #DDDDDD;
+}
+.debug-code .code-header,
+.debug-code .result-header {
+	padding: 5px;
+	color: #333333;
+	background-color: #DDDDDD;
+}
+.debug-code .code,
+.debug-code .result {
+	margin: 0;
 	padding: 10px;
 	font-family: Menlo, Monaco, Consolas, monospace;
 	font-size: 12px;
 	color: #333333;
 	background-color: #EEEEEE;
-	border: 5px solid #DDDDDD;
-	border-radius: 0;
 	display: block;
 	z-index: 1000;
 	overflow: auto;
 	tab-size: 4;
 	-moz-tab-size: 4;
-}
-
-pre.code div.code-result-header {
-	padding: 10px 0;
-	margin: 10px -10px;
-	color: #333333;
-	background-color: #DDDDDD;
 }

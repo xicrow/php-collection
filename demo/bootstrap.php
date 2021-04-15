@@ -16,14 +16,14 @@ function debugCode(string $strCode, $result = null): void
 		"&lt;?php<br />" => "",
 	];
 
+	echo '<div class="debug-code">';
+	echo '<div class="code-header">Code:</div>';
 	echo '<pre class="code">';
 	echo str_replace(array_keys($highlightSearchAndReplace), array_values($highlightSearchAndReplace), highlight_string("<?php\n" . $strCode, true));
-
+	echo '</pre>';
 	if ($result !== null) {
-		echo '<div class="code-result-header">';
-		echo "Result:";
-		echo '</div>';
-
+		echo '<div class="result-header">Result:</div>';
+		echo '<pre class="result">';
 		if ($result instanceof BaseCollection) {
 			if ($result->count() === 0) {
 				echo get_class($result) . '[]';
@@ -63,7 +63,7 @@ function debugCode(string $strCode, $result = null): void
 		} else {
 			var_dump($result);
 		}
+		echo '</pre>';
 	}
-
-	echo '</pre>';
+	echo '</div>';
 }
