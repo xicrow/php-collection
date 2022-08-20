@@ -41,3 +41,7 @@ h2 {
 	tab-size: 4;
 	-moz-tab-size: 4;
 }
+.debug-code .code code {
+	margin: 0;
+	padding: 0;
+}
