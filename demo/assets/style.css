@@ -21,12 +21,14 @@ h2 {
 .debug-code {
 	border: 5px solid #DDDDDD;
 }
+
 .debug-code .code-header,
 .debug-code .result-header {
 	padding: 5px;
 	color: #333333;
 	background-color: #DDDDDD;
 }
+
 .debug-code .code,
 .debug-code .result {
 	margin: 0;
@@ -41,6 +43,7 @@ h2 {
 	tab-size: 4;
 	-moz-tab-size: 4;
 }
+
 .debug-code .code code {
 	margin: 0;
 	padding: 0;

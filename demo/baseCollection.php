@@ -1,54 +1,55 @@
 <?php
 require_once('bootstrap.php'); ?>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Xicrow/PhpCollection</title>
-		<link rel="stylesheet" type="text/css" href="assets/style.css">
-	</head>
+<head>
+	<meta charset="UTF-8">
+	<title>Xicrow/PhpCollection</title>
+	<link rel="stylesheet" type="text/css" href="assets/style.css">
+</head>
 
-	<body>
-		<h1>BaseCollection</h1>
-		<a href="index.php">Back to index</a>
-		<p>Demonstration of BaseCollection methods, which are basically the same for all collections, so they are represented here by the StringCollection.</p>
+<body>
+<h1>BaseCollection</h1>
+<a href="index.php">Back to index</a>
+<p>Demonstration of BaseCollection methods, which are basically the same for all collections, so they are represented here by the
+	StringCollection.</p>
 
-		<?php
-		echo '<h3>BaseCollection::__construct</h3>';
-		debugCodeEval(
-			<<<'PHP'
+<?php
+echo '<h3>BaseCollection::__construct</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = new StringCollection('hello', 'world');
 			
 			print_r($collection);
 			PHP
-		);
+);
 
-		echo '<h3>BaseCollection::Create</h3>';
-		debugCodeEval(
-			<<<'PHP'
+echo '<h3>BaseCollection::Create</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = StringCollection::Create('hello', 'world');
 			
 			print_r($collection);
 			PHP
-		);
+);
 
-		echo '<h3>BaseCollection::CreateFromArray</h3>';
-		debugCodeEval(
-			<<<'PHP'
+echo '<h3>BaseCollection::CreateFromArray</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = StringCollection::CreateFromArray(['hello', 'world']);
 			
 			print_r($collection);
 			PHP
-		);
+);
 
-		echo '<h3>BaseCollection::asArray</h3>';
-		debugCodeEval(
-			<<<'PHP'
+echo '<h3>BaseCollection::asArray</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = new StringCollection('hello', 'world');
@@ -57,11 +58,11 @@ require_once('bootstrap.php'); ?>
 			print_r($collection);
 			print_r($array);
 			PHP
-		);
+);
 
-		echo '<h3>BaseCollection::add</h3>';
-		debugCodeEval(
-			<<<'PHP'
+echo '<h3>BaseCollection::add</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = new StringCollection('hello', 'world');
@@ -69,11 +70,11 @@ require_once('bootstrap.php'); ?>
 			
 			print_r($collection);
 			PHP
-		);
+);
 
-		echo '<h3>BaseCollection::combine</h3>';
-		debugCodeEval(
-			<<<'PHP'
+echo '<h3>BaseCollection::combine</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = new StringCollection('hello', 'world');
@@ -81,11 +82,11 @@ require_once('bootstrap.php'); ?>
 			
 			print_r($collection);
 			PHP
-		);
+);
 
-		echo '<h3>BaseCollection::filter</h3>';
-		debugCodeEval(
-			<<<'PHP'
+echo '<h3>BaseCollection::filter</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = new StringCollection('hello', 'world');
@@ -95,11 +96,11 @@ require_once('bootstrap.php'); ?>
 			
 			print_r($collection);
 			PHP
-		);
+);
 
-		echo '<h3>BaseCollection::first</h3>';
-		debugCodeEval(
-			<<<'PHP'
+echo '<h3>BaseCollection::first</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = new StringCollection('hello', 'world');
@@ -108,11 +109,11 @@ require_once('bootstrap.php'); ?>
 			print_r($collection);
 			var_dump($string);
 			PHP
-		);
+);
 
-		echo '<h3>BaseCollection::has</h3>';
-		debugCodeEval(
-			<<<'PHP'
+echo '<h3>BaseCollection::has</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = new StringCollection('hello', 'world');
@@ -121,11 +122,11 @@ require_once('bootstrap.php'); ?>
 			print_r($collection);
 			var_dump($boolean);
 			PHP
-		);
+);
 
-		echo '<h3>BaseCollection::last</h3>';
-		debugCodeEval(
-			<<<'PHP'
+echo '<h3>BaseCollection::last</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = new StringCollection('hello', 'world');
@@ -134,11 +135,11 @@ require_once('bootstrap.php'); ?>
 			print_r($collection);
 			var_dump($string);
 			PHP
-		);
+);
 
-		echo '<h3>BaseCollection::merge</h3>';
-		debugCodeEval(
-			<<<'PHP'
+echo '<h3>BaseCollection::merge</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = new StringCollection('hello', 'world');
@@ -151,11 +152,11 @@ require_once('bootstrap.php'); ?>
 			
 			print_r($collection);
 			PHP
-		);
+);
 
-		echo '<h3>BaseCollection::sort</h3>';
-		debugCodeEval(
-			<<<'PHP'
+echo '<h3>BaseCollection::sort</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = new StringCollection('hello', 'world');
@@ -165,11 +166,11 @@ require_once('bootstrap.php'); ?>
 			
 			print_r($collection);
 			PHP
-		);
+);
 
-		echo '<h3>BaseCollection::take</h3>';
-		debugCodeEval(
-			<<<'PHP'
+echo '<h3>BaseCollection::take</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = new StringCollection('hello', 'world');
@@ -177,11 +178,11 @@ require_once('bootstrap.php'); ?>
 			
 			print_r($collection);
 			PHP
-		);
+);
 
-		echo '<h3>BaseCollection::unique</h3>';
-		debugCodeEval(
-			<<<'PHP'
+echo '<h3>BaseCollection::unique</h3>';
+debugCodeEval(
+	<<<'PHP'
 			use Xicrow\PhpCollection\Scalar\StringCollection;
 			
 			$collection = new StringCollection('hello', 'world', 'hello', 'world');
@@ -189,7 +190,7 @@ require_once('bootstrap.php'); ?>
 			
 			print_r($collection);
 			PHP
-		);
-		?>
-	</body>
+);
+?>
+</body>
 </html>

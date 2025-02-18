@@ -1,26 +1,26 @@
 {
-	"name"        : "xicrow/php-collection",
-	"description" : "PHP collections for various types",
-	"type"        : "library",
-	"keywords"    : [],
-	"license"     : "MIT",
-	"authors"     : [
+	"name": "xicrow/php-collection",
+	"description": "PHP collections for various types",
+	"type": "library",
+	"keywords": [],
+	"license": "MIT",
+	"authors": [
 		{
-			"name"    : "Jan Ebsen",
-			"email"   : "xicrow@gmail.com",
+			"name": "Jan Ebsen",
+			"email": "xicrow@gmail.com",
 			"homepage": "http://jan-ebsen.dk",
-			"role"    : "developer"
+			"role": "developer"
 		}
 	],
-	"support"     : {
+	"support": {
 		"issues": "https://github.com/xicrow/php-collection/issues"
 	},
-	"require"     : {
-		"php"         : "^7.4",
+	"require": {
+		"php": "^7.4",
 		"ext-mbstring": "*",
-		"ext-json"    : "*"
+		"ext-json": "*"
 	},
-	"autoload"    : {
+	"autoload": {
 		"psr-4": {
 			"Xicrow\\PhpCollection\\": "src"
 		}
