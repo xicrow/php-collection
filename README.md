@@ -4,7 +4,7 @@
 
 The recommended way to install is through Composer:
 
-```shell script
+```shell
 composer require xicrow/php-collection
 ```
 
@@ -17,15 +17,6 @@ Optionally add it to your composer.json file:
 	}
 }
 ```
-
-## Usage
-
-See examples in the `demo` folder.
-
-## TODO
-
-- Add missing docblocks
-- Add more object collections
 
 ## License
 
