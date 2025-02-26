@@ -16,18 +16,13 @@
 		"issues": "https://github.com/xicrow/php-collection/issues"
 	},
 	"require": {
-		"php": "^7.4",
+		"php": "~8.0",
 		"ext-mbstring": "*",
 		"ext-json": "*"
 	},
 	"autoload": {
 		"psr-4": {
 			"Xicrow\\PhpCollection\\": "src"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Xicrow\\PhpCollection\\Test\\": "tests"
 		}
 	}
 }

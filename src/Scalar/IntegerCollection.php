@@ -1,28 +1,12 @@
 <?php
 declare(strict_types=1);
+
 namespace Xicrow\PhpCollection\Scalar;
 
+use Xicrow\PhpCollection\BaseCollection;
+
 /**
- * Class IntegerCollection
- *
- * Inherited from BaseCollection
- * @method static IntegerCollection Create(int ...$values)
- * @method static IntegerCollection CreateFromArray(int[] $values = [])
- * @method int[] asArray()
- * @method IntegerCollection add(int ...$values)
- * @method IntegerCollection combine(IntegerCollection ...$collections)
- * @method IntegerCollection filter(?callable $callback = null)
- * @method int|null first()
- * @method int has(int $value)
- * @method int|null last()
- * @method IntegerCollection merge(IntegerCollection ...$collections)
- * @method IntegerCollection sort(callable $callback)
- * @method IntegerCollection take(int $amount, int $from = 0)
- * @method IntegerCollection unique()
- * @method int|null offsetGet($mOffset)
- * @method int|null current()
- *
- * @package Xicrow\PhpCollection\Scalar
+ * @template-extends BaseCollection<int>
  */
 class IntegerCollection extends BaseScalarCollection
 {

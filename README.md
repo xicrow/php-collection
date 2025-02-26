@@ -13,7 +13,7 @@ Optionally add it to your composer.json file:
 ```json
 {
 	"require": {
-		"xicrow/php-collection": "^1.0"
+		"xicrow/php-collection": "~2.0"
 	}
 }
 ```

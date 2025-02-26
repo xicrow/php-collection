@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace Xicrow\PhpCollection;
 
 use ArrayAccess;
@@ -10,39 +11,58 @@ use RuntimeException;
 use Serializable;
 
 /**
- * Class BaseCollection
- *
- * Template for subclasses (replace tags, and remove space in "@ method"):
- *     Inherited from BaseCollection
- *     @ method static <COLLECTION_CLASS> Create(<VALUE_TYPE> ...$values)
- *     @ method static <COLLECTION_CLASS> CreateFromArray(<VALUE_TYPE>[] $values = [])
- *     @ method <VALUE_TYPE>[] asArray()
- *     @ method <COLLECTION_CLASS> add(<VALUE_TYPE> ...$values)
- *     @ method <COLLECTION_CLASS> combine(<COLLECTION_CLASS> ...$collections)
- *     @ method <COLLECTION_CLASS> filter(?callable $callback = null)
- *     @ method <VALUE_TYPE>|null first()
- *     @ method <VALUE_TYPE> has(<VALUE_TYPE> $value)
- *     @ method <VALUE_TYPE>|null last()
- *     @ method <COLLECTION_CLASS> merge(<COLLECTION_CLASS> ...$collections)
- *     @ method <COLLECTION_CLASS> sort(callable $callback)
- *     @ method <COLLECTION_CLASS> take(int $amount, int $from = 0)
- *     @ method <COLLECTION_CLASS> unique()
- *     @ method <VALUE_TYPE>|null offsetGet($mOffset)
- *     @ method <VALUE_TYPE>|null current()
- *
- * @package Xicrow\PhpCollection
+ * @template CollectionItem of mixed
  */
 abstract class BaseCollection implements ArrayAccess, Countable, Iterator, JsonSerializable, Serializable
 {
+	/** @phpstan-var list<CollectionItem> */
 	private array $storage         = [];
 	private int   $storagePosition = 0;
 
-	public function __construct(...$values)
+	/**
+	 * @phpstan-param CollectionItem ...$values
+	 */
+	public static function Create(...$values): static
+	{
+		return new static(...$values);
+	}
+
+	/**
+	 * @phpstan-param CollectionItem[] $values
+	 */
+	public static function CreateFromArray(array $values = []): static
+	{
+		return new static(...$values);
+	}
+
+	abstract protected static function IsValueValid(mixed $value): bool;
+
+	/**
+	 * @phpstan-param CollectionItem ...$values
+	 */
+	public function __construct(mixed ...$values)
 	{
 		$this->add(...$values);
 	}
 
-	public function add(...$values): self
+	public function __serialize(): array
+	{
+		return [
+			'storage'         => $this->storage,
+			'storagePosition' => $this->storagePosition,
+		];
+	}
+
+	public function __unserialize(array $data): void
+	{
+		$this->storage         = $data['storage'] ?? [];
+		$this->storagePosition = $data['storagePosition'] ?? 0;
+	}
+
+	/**
+	 * @phpstan-param CollectionItem ...$values
+	 */
+	public function add(mixed ...$values): static
 	{
 		foreach ($values as $value) {
 			if (!static::IsValueValid($value)) {
@@ -55,19 +75,10 @@ abstract class BaseCollection implements ArrayAccess, Countable, Iterator, JsonS
 		return $this;
 	}
 
-	abstract protected static function IsValueValid($value): bool;
-
-	public static function Create(...$values): self
-	{
-		return new static(...$values);
-	}
-
-	public static function CreateFromArray(array $values = []): self
-	{
-		return new static(...$values);
-	}
-
-	public function filter(?callable $callback = null): self
+	/**
+	 * @phpstan-param (callable(CollectionItem): bool)|null $callback
+	 */
+	public function filter(callable|null $callback = null): static
 	{
 		if ($callback === null) {
 			return new static(...array_filter($this->storage));
@@ -76,7 +87,10 @@ abstract class BaseCollection implements ArrayAccess, Countable, Iterator, JsonS
 		return new static(...array_filter($this->storage, $callback));
 	}
 
-	public function first()
+	/**
+	 * @phpstan-return CollectionItem|null
+	 */
+	public function first(): mixed
 	{
 		if ($this->storage === []) {
 			return null;
@@ -85,12 +99,18 @@ abstract class BaseCollection implements ArrayAccess, Countable, Iterator, JsonS
 		return reset($this->storage);
 	}
 
-	public function has($value): bool
+	/**
+	 * @phpstan-param CollectionItem $value
+	 */
+	public function has(mixed $value): bool
 	{
-		return array_search($value, $this->storage, true) !== false;
+		return in_array($value, $this->storage, true);
 	}
 
-	public function last()
+	/**
+	 * @phpstan-return CollectionItem|null
+	 */
+	public function last(): mixed
 	{
 		if ($this->storage === []) {
 			return null;
@@ -99,17 +119,17 @@ abstract class BaseCollection implements ArrayAccess, Countable, Iterator, JsonS
 		return end($this->storage);
 	}
 
-	public function merge(BaseCollection ...$collections): self
+	public function merge(BaseCollection ...$collections): static
 	{
-		return $this->combine(...$collections)->unique();
+		return $this->combine(...$collections);
 	}
 
-	public function unique(): self
+	public function unique(): static
 	{
 		return new static(...array_unique($this->storage));
 	}
 
-	public function combine(BaseCollection ...$collections): self
+	public function combine(BaseCollection ...$collections): static
 	{
 		$newCollection = clone $this;
 		foreach ($collections as $index => $collection) {
@@ -123,12 +143,18 @@ abstract class BaseCollection implements ArrayAccess, Countable, Iterator, JsonS
 		return $newCollection;
 	}
 
+	/**
+	 * @phpstan-return list<CollectionItem>
+	 */
 	public function asArray(): array
 	{
 		return $this->storage;
 	}
 
-	public function sort(callable $callback): self
+	/**
+	 * @phpstan-param callable(CollectionItem, CollectionItem): int $callback
+	 */
+	public function sort(callable $callback): static
 	{
 		$storage = $this->storage;
 		usort($storage, $callback);
@@ -136,35 +162,41 @@ abstract class BaseCollection implements ArrayAccess, Countable, Iterator, JsonS
 		return new static(...$storage);
 	}
 
-	public function take(int $amount, int $from = 0): self
+	public function take(int $amount, int $from = 0): static
 	{
 		return new static(...array_slice(array_values($this->storage), $from, $amount));
 	}
 
 	// ArrayAccess implementation
 
-	public function offsetExists($mOffset): bool
+	public function offsetExists($offset): bool
 	{
-		return isset($this->storage[$mOffset]);
+		return isset($this->storage[$offset]);
 	}
 
-	public function offsetGet($mOffset)
+	/**
+	 * @phpstan-return CollectionItem|null
+	 */
+	public function offsetGet($offset): mixed
 	{
-		return $this->storage[$mOffset] ?? null;
+		return $this->storage[$offset] ?? null;
 	}
 
-	public function offsetSet($mOffset, $value): void
+	/**
+	 * @phpstan-param CollectionItem $value
+	 */
+	public function offsetSet($offset, $value): void
 	{
 		if (!$this->IsValueValid($value)) {
 			throw new RuntimeException('');
 		}
 
-		$this->storage[$mOffset] = $value;
+		$this->storage[$offset] = $value;
 	}
 
-	public function offsetUnset($mOffset): void
+	public function offsetUnset($offset): void
 	{
-		unset($this->storage[$mOffset]);
+		unset($this->storage[$offset]);
 	}
 
 	// Countable implementation
@@ -181,7 +213,10 @@ abstract class BaseCollection implements ArrayAccess, Countable, Iterator, JsonS
 		$this->storagePosition = 0;
 	}
 
-	public function current()
+	/**
+	 * @phpstan-return CollectionItem|null
+	 */
+	public function current(): mixed
 	{
 		return $this->storage[$this->storagePosition] ?? null;
 	}
@@ -212,13 +247,13 @@ abstract class BaseCollection implements ArrayAccess, Countable, Iterator, JsonS
 
 	// Serializable implementation
 
-	public function serialize()
+	public function serialize(): string|null
 	{
 		return serialize([$this->storage, $this->storagePosition]);
 	}
 
-	public function unserialize($serialized)
+	public function unserialize($data): void
 	{
-		[$this->storage, $this->storagePosition] = unserialize($serialized);
+		[$this->storage, $this->storagePosition] = unserialize($data);
 	}
 }
